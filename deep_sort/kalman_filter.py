@@ -18,7 +18,7 @@ chi2inv95 = {
     7: 14.067,
     8: 15.507,
     9: 16.919}
-
+    
 
 class KalmanFilter(object):
     """
