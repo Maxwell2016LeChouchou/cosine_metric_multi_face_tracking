@@ -23,6 +23,7 @@ from moviepy.editor import VideoFileClip
 
 import detector
 
+from application_util import visual_helpers
 
 
 def create_detections():
@@ -36,50 +37,29 @@ def create_detections():
 
 
 def run(img, output_file, min_confidence, 
-    min_detection_height, max_cosine_distance, 
-    nn_budget, display):
+    min_detection_height, max_cosine_distance, nn_budget, display):
 
     metric = nn_matching.NearestNeighborDistanceMetric(
         "cosine", max_cosine_distance, nn_budget)  # Here they set lamda as zero
     tracker = Tracker(metric)
     results=[]
 
+    det = detector.face_detection()
+    detections = det.get_localization(img)
 
-    def frame_callback(vis, frame_idx):
+    tracker.predict()
+    tracker.update(detections)
 
-        # Obtain the detection results
-        det = detector.face_detection()
-        detections = det.get_localization(img)
-
-        """
-        Here original has the NMS but we dont need this
-        """
-        
-        # Update tracker
-        tracker.predict()
-        tracker.update(detections)
-
-        # Update visualization
-        if display:
-            image = cv2.imread(img) 
-            vis.set_image(image.copy())
-            vis.draw_detections(detections)
-            vis.draw_trackers(tracker.tracks)
-            
-
-        # Store results
-        for track in tracker.tracks:
-            if not track.is_confirmed() or track.time_since_update > 1:
-                continue 
-            bbox = track.to_tlwh()
-            results.append([bbox[0], bbox[1], bbox[2], bbox[3]])
-
-    # Run tracker
+    for track in tracker.tracks:
+        if not track.is_confirmed() or track.time_since_update > 1:
+            continue
+        bbox = track.to_tlbr()
+        results.append([bbox[0], bbox[1], bbox[2], bbox[3]])
+    
     if display:
-        visualizer = visualization.Visualization(img, update_ms=5)
+        img = visual_helpers.draw_box_label(img,bbox)
     else:
-        print("No visualization")
-    visualizer.run(frame_callback)
+        print("No display")
 
 
     # Store results
@@ -87,13 +67,69 @@ def run(img, output_file, min_confidence,
     for bbox_info in results:
         print('%.2f,%.2f,%.2f,%.2f' %(bbox_info[0], bbox_info[1], bbox_info[2], bbox_info[3]),file=f)
 
+        
+
+
+# def run(img, output_file, min_confidence, 
+#     min_detection_height, max_cosine_distance, 
+#     nn_budget, display):
+
+#     metric = nn_matching.NearestNeighborDistanceMetric(
+#         "cosine", max_cosine_distance, nn_budget)  # Here they set lamda as zero
+#     tracker = Tracker(metric)
+#     results=[]
+
+
+#     def frame_callback(vis, frame_idx):
+
+#         # Obtain the detection results
+#         det = detector.face_detection()
+#         detections = det.get_localization(img)
+
+#         """
+#         Here original has the NMS but we dont need this
+#         """
+        
+#         # Update tracker
+#         tracker.predict()
+#         tracker.update(detections)
+
+#         # Update visualization
+#         if display:
+#             image = cv2.imread(img) 
+#             vis.set_image(image.copy())
+#             vis.draw_detections(detections)
+#             vis.draw_trackers(tracker.tracks)
+            
+
+#         # Store results
+#         for track in tracker.tracks:
+#             if not track.is_confirmed() or track.time_since_update > 1:
+#                 continue 
+#             bbox = track.to_tlwh()
+#             results.append([bbox[0], bbox[1], bbox[2], bbox[3]])
+
+#     # Run tracker
+#     if display:
+#         visualizer = visualization.Visualization(img, update_ms=5)
+#     else:
+#         print("No visualization")
+#     visualizer.run(frame_callback)
+
+
+#     # Store results
+#     f=open(output_file, 'w')
+#     for bbox_info in results:
+#         print('%.2f,%.2f,%.2f,%.2f' %(bbox_info[0], bbox_info[1], bbox_info[2], bbox_info[3]),file=f)
+
+
+
 
 def bool_string(input_string):
     if input_string not in {"True", "False"}:
         raise ValueError("Please Enter a valid True/False choice")
     else: 
         return (input_string == "True")  
-
 
 
 if __name__ == "__main__":
@@ -105,11 +141,14 @@ if __name__ == "__main__":
     nn_budget = None
     display = True
 
-    
-    clip1 = VideoFileClip("/home/maxwell/Documents/maxwell_friends.mp4")
-    clip = clip1.fl_image
+    video_file = "/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/maxwell_friends.mp4"
+    # clip1 = VideoFileClip("/home/maxwell/Documents/maxwell_friends.mp4")
+    # clip = clip1.fl_image
+    clip = cv2.VideoCapture(video_file)
+    for f in clip:
+        rval, frame=clip.read()
 
-    run(clip, output_file, min_confidence, 
+    run(frame, output_file, min_confidence, 
         min_detection_height, max_cosine_distance, 
         nn_budget, display)
         
