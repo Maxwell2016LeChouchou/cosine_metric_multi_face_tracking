@@ -26,14 +26,14 @@ import detector
 from application_util import visual_helpers
 
 
-def create_detections():
+# def create_detections():
 
-    det = detector.face_detection()
-    detection_boxs = det.get_localization(img)
-    #for row, detections in enumerate(detection_boxs):
+#     det = detector.face_detection()
+#     detection_boxs = det.get_localization(img)
+#     #for row, detections in enumerate(detection_boxs):
         
     
-    return detection_boxs
+#     return detection_boxs
 
 
 def run(img, output_file, min_confidence, 
@@ -134,7 +134,7 @@ def bool_string(input_string):
 
 if __name__ == "__main__":
     #Input parameters
-    output_file='/home/maxwell/deektop/yt_test_data/output_file/track_results.txt'
+    output_file='/home/max/deektop/yt_test_data/output_file/track_results.txt'
     min_confidence = 0.3
     min_detection_height = 0 
     max_cosine_distance = 0.2
