@@ -36,8 +36,17 @@ from application_util import visual_helpers
 #     return detection_boxs
 
 
-def run(img, output_file, min_confidence, 
-    min_detection_height, max_cosine_distance, nn_budget, display):
+#def run(img, output_file, min_confidence, 
+    #min_detection_height, max_cosine_distance, nn_budget, display):
+
+def run(img):
+    output_file='/home/max/Desktop/yt_test_data/output_file/track_results.txt'
+
+    min_confidence = 0.3
+    min_detection_height = 0 
+    max_cosine_distance = 0.2
+    nn_budget = None
+    display = True
 
     metric = nn_matching.NearestNeighborDistanceMetric(
         "cosine", max_cosine_distance, nn_budget)  # Here they set lamda as zero
@@ -55,11 +64,12 @@ def run(img, output_file, min_confidence,
             continue
         bbox = track.to_tlbr()
         results.append([bbox[0], bbox[1], bbox[2], bbox[3]])
+        
+        if display:
+            img = visual_helpers.draw_box_label(img,bbox)
+        else:
+            print("No display")
     
-    if display:
-        img = visual_helpers.draw_box_label(img,bbox)
-    else:
-        print("No display")
 
 
     # Store results
@@ -67,7 +77,7 @@ def run(img, output_file, min_confidence,
     for bbox_info in results:
         print('%.2f,%.2f,%.2f,%.2f' %(bbox_info[0], bbox_info[1], bbox_info[2], bbox_info[3]),file=f)
 
-        
+    return img
 
 
 # def run(img, output_file, min_confidence, 
@@ -133,22 +143,22 @@ def bool_string(input_string):
 
 
 if __name__ == "__main__":
-    #Input parameters
-    output_file='/home/max/deektop/yt_test_data/output_file/track_results.txt'
-    min_confidence = 0.3
-    min_detection_height = 0 
-    max_cosine_distance = 0.2
-    nn_budget = None
-    display = True
 
-    video_file = "/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/maxwell_friends.mp4"
-    # clip1 = VideoFileClip("/home/maxwell/Documents/maxwell_friends.mp4")
-    # clip = clip1.fl_image
-    clip = cv2.VideoCapture(video_file)
-    for f in clip:
-        rval, frame=clip.read()
 
-    run(frame, output_file, min_confidence, 
-        min_detection_height, max_cosine_distance, 
-        nn_budget, display)
+    output_video = '/home/max/Desktop/yt_test_data/output_file/test_1.mp4'
+
+    video_file = "/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/maxwell_lingfeng.mp4"
+    clip1 = VideoFileClip(video_file)
+    clip = clip1.fl_image(run)
+  
+    clip.write_videofile(output_video, audio=False)
+
+
+    #clip = cv2.VideoCapture(video_file)
+    
+    #rval, frame=clip.read()
+
+    #run(frame, output_file, min_confidence, 
+        #min_detection_height, max_cosine_distance, 
+        #nn_budget, display)
         
