@@ -17,7 +17,7 @@ def video_to_frame(video_file):
     end_time = 12000
     step=30
 
-    dir_name = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame'
+    dir_name = '/home/maxwell/Downloads/MTCNN/cosine_metric_multi_face_tracking/problem/img1'
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
 
@@ -27,7 +27,7 @@ def video_to_frame(video_file):
         success, image=vidcap.read()
         if success:
             # Need to create the directory ( 'highway') first 
-            frame_list='/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame/{:04d}.jpg'.format(i+1)   
+            frame_list='/home/maxwell/Downloads/MTCNN/cosine_metric_multi_face_tracking/problem/img1/{:04d}.jpg'.format(i+1)   
             cv2.imwrite(frame_list,image)
     
 
@@ -64,9 +64,9 @@ def generate_detections(video_dir, frame_dir, det_dir):
 
 if __name__ == '__main__':
 
-    video_dir = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/maxwell_friends.mp4'
-    frame_dir = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame/'
-    det_dir = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/problem/det_txt.txt'
+    video_dir = '/home/maxwell/Downloads/MTCNN/cosine_metric_multi_face_tracking/maxwell_friends.mp4'
+    frame_dir = '/home/maxwell/Downloads/MTCNN/cosine_metric_multi_face_tracking/problem/img1/'
+    det_dir = '/home/maxwell/Downloads/MTCNN/cosine_metric_multi_face_tracking/problem/det/det.txt'
     generate_detections(video_dir,frame_dir,det_dir)
 
 
@@ -78,7 +78,7 @@ if __name__ == '__main__':
 
 
 
-# mot_dir = "/home/max/Downloads/MOT16/train/"    
+# mot_dir = "/home/maxwell/Downloads/MOT16/train/"    
     
     
 # for sequence in os.listdir(mot_dir):
@@ -92,8 +92,8 @@ if __name__ == '__main__':
 #     print(image_filenames)
 
 
-# yt_dir = "/home/max/Downloads/cosine_metric_learning-master/datasets/Youtube_faces/Test_dataset/"
-# bbox_dir = "/home/max/Downloads/cosine_metric_learning-master/datasets/Youtube_faces/test_csv_bbox/"
+# yt_dir = "/home/maxwell/Downloads/cosine_metric_learning-master/datasets/Youtube_faces/Test_dataset/"
+# bbox_dir = "/home/maxwell/Downloads/cosine_metric_learning-master/datasets/Youtube_faces/test_csv_bbox/"
 
 # files = []
 # for f in sorted(os.listdir(bbox_dir)):
@@ -141,9 +141,9 @@ if __name__ == '__main__':
 #                 f.write('{},{},{},{},{},{},1,-1,-1,-1\n'.format(*r))                
             
 # def main():
-#     input_path = '/home/max/Downloads/cosine_metric_learning-master/datasets/Youtube_faces/test_csv_bbox/'
-#     middle_path = '/home/max/Downloads/cosine_metric_learning-master/datasets/Youtube_faces/test_info_csv/'
-#     output_path = '/home/max/Downloads/cosine_metric_learning-master/datasets/Youtube_faces/test_output_csv/'
+#     input_path = '/home/maxwell/Downloads/cosine_metric_learning-master/datasets/Youtube_faces/test_csv_bbox/'
+#     middle_path = '/home/maxwell/Downloads/cosine_metric_learning-master/datasets/Youtube_faces/test_info_csv/'
+#     output_path = '/home/maxwell/Downloads/cosine_metric_learning-master/datasets/Youtube_faces/test_output_csv/'
     
 #     if not os.path.exists(middle_path):
 #         os.mkdir(middle_path)
@@ -182,8 +182,8 @@ if __name__ == '__main__':
         
 
 # def main():
-#     input_path = '/home/max/Downloads/deep_sort/dataset/test_csv/'
-#     output_path = '/home/max/Downloads/deep_sort/dataset/test_output_csv/'
+#     input_path = '/home/maxwell/Downloads/deep_sort/dataset/test_csv/'
+#     output_path = '/home/maxwell/Downloads/deep_sort/dataset/test_output_csv/'
 
 #     if not os.path.exists(output_path):
 #         os.mkdir(output_path)
@@ -196,7 +196,7 @@ if __name__ == '__main__':
 
 
 
-# csv_dir = '/home/max/Downloads/cosine_metric_learning/datasets/test_csv'
+# csv_dir = '/home/maxwell/Downloads/cosine_metric_learning/datasets/test_csv'
 # for filename in os.listdir(csv_dir):
 #     for line in open(os.path.join(csv_dir,filename), "r"):
 #         data = line.split(",")
@@ -208,7 +208,7 @@ if __name__ == '__main__':
 #         print(frame_idx)
  
 
-# PATH_TO_TEST_IMAGES_DIR = "/home/max/Downloads/MTCNN/models/research/object_detection/samples/data/lfpw_testImage/"
+# PATH_TO_TEST_IMAGES_DIR = "/home/maxwell/Downloads/MTCNN/models/research/object_detection/samples/data/lfpw_testImage/"
 # #TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 3) ]
 # for image_file in sorted(os.listdir(PATH_TO_TEST_IMAGES_DIR)):
 #     images = os.path.join(PATH_TO_TEST_IMAGES_DIR, image_file)

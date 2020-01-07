@@ -13,7 +13,7 @@ from glob import glob
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 
-sys.path.append("/home/max/Downloads/MTCNN/models/research")
+sys.path.append("/home/maxwell/Downloads/MTCNN/models/research")
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util 
 
@@ -25,11 +25,11 @@ class face_detection(object):
         os.chdir(cwd)
         
         #detect_model_name = 'ckpt_data_ssd_mobilenent_v1_coco_FDDB'
-        detect_model_name = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/ckpt_data_ssd_inception_v2_coco'
-        #detect_model_name = '/home/max/Desktop/files/ckpt_data_ssd_inception_v2_coco'
+        detect_model_name = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/ckpt_data_ssd_inception_v2_coco'
+        #detect_model_name = '/home/maxwell/Desktop/files/ckpt_data_ssd_inception_v2_coco'
         PATH_TO_CKPT = detect_model_name + '/frozen_inference_graph.pb'
         
-        # PATH_TO_LABELS = '/home/max/Downloads/tf-face-detector-master/data/fddb_label_map.pbtxt'
+        # PATH_TO_LABELS = '/home/maxwell/Downloads/tf-face-detector-master/data/fddb_label_map.pbtxt'
         # NUM_CLASSES = 2
 
         # setup tensorflow graph
@@ -95,8 +95,8 @@ class face_detection(object):
                 feed_dict={self.image_tensor: image_expanded})
 
             # print('num_detections:{}'.format(num_detections))
-            # print(scores.min(), scores.max())
-            # print(classes.min(), classes.max())
+            # print(scores.min(), scores.maxwell())
+            # print(classes.min(), classes.maxwell())
             # visual = True
             if visual == True:
                 #image.flags.writeable = True
@@ -134,7 +134,7 @@ class face_detection(object):
                     box_tlwh = box[1], box[2], box_w, box_h
                     ratio = box_h/(box_w + 0.01)
                       
-                    if ((ratio > 1.2) and (box_h>20) and (box_w>20)):
+                    if ((ratio > 1.0) and (box_h>20) and (box_w>20)):
                         
                         print(box_tlwh, ', confidence: ', scores[idx], 'ratio:', ratio)
                          
