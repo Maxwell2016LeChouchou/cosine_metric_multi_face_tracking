@@ -13,7 +13,7 @@ from glob import glob
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 
-sys.path.append("/home/maxwell/Downloads/MTCNN/models/research")
+sys.path.append("/home/max/Downloads/MTCNN/models/research")
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util 
 
@@ -25,7 +25,7 @@ class face_detection(object):
         os.chdir(cwd)
         
         #detect_model_name = 'ckpt_data_ssd_mobilenent_v1_coco_FDDB'
-        detect_model_name = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/ckpt_data_ssd_inception_v2_coco'
+        detect_model_name = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/ckpt_data_ssd_inception_v2_coco'
         #detect_model_name = '/home/max/Desktop/files/ckpt_data_ssd_inception_v2_coco'
         PATH_TO_CKPT = detect_model_name + '/frozen_inference_graph.pb'
         
@@ -120,12 +120,11 @@ class face_detection(object):
             cls = classes.tolist()
               
             idx_vec = [i for i, v in enumerate(cls) if ((v==1) and (scores[i]>0.3))]
-              
+            
+            face_boxes = []
             if len(idx_vec) ==0:
                 print('no detection!')
-                self.face_boxes = []  
             else:
-                
                 for idx in idx_vec:
                     print(idx)
                     dim = image.shape[0:2]
@@ -142,11 +141,11 @@ class face_detection(object):
                     else:
                         print('wrong ratio or wrong size, ', box_tlwh, ', confidence: ', scores[idx], 'ratio:', ratio)
                 
-                self.face_boxes = box_tlwh
+                    face_boxes.append(box_tlwh)
             
-                print(self.face_boxes)
+            print(face_boxes)
                 
 
-        return self.face_boxes
+        return face_boxes
 
                           

@@ -17,7 +17,7 @@ def video_to_frame(video_file):
     end_time = 12000
     step=30
 
-    dir_name = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame'
+    dir_name = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame'
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
 
@@ -27,7 +27,7 @@ def video_to_frame(video_file):
         success, image=vidcap.read()
         if success:
             # Need to create the directory ( 'highway') first 
-            frame_list='/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame/{:04d}.jpg'.format(i+1)   
+            frame_list='/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame/{:04d}.jpg'.format(i+1)   
             cv2.imwrite(frame_list,image)
     
 
@@ -54,7 +54,8 @@ def generate_detections(video_dir, frame_dir, det_dir):
         det_y = -1
         det_z = -1
 
-        det_txt.append([image_name, face_id, det_bbox[0], det_bbox[1], det_bbox[2], det_bbox[3], confidence, det_x, det_y, det_z])
+        for i in range(len(det_bbox)):
+            det_txt.append([image_name, face_id, det_bbox[i][0], det_bbox[i][1], det_bbox[i][2], det_bbox[i][3], confidence, det_x, det_y, det_z])
 
     a = np.array(det_txt)
     np.savetxt(det_dir, a, fmt="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s")
@@ -63,9 +64,9 @@ def generate_detections(video_dir, frame_dir, det_dir):
 
 if __name__ == '__main__':
 
-    video_dir = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/maxwell_friends.mp4'
-    frame_dir = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame/'
-    det_dir = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/det_txt.txt'
+    video_dir = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/maxwell_friends.mp4'
+    frame_dir = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame/'
+    det_dir = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/problem/det_txt.txt'
     generate_detections(video_dir,frame_dir,det_dir)
 
 
@@ -181,8 +182,8 @@ if __name__ == '__main__':
         
 
 # def main():
-#     input_path = '/home/maxwell/Downloads/deep_sort/dataset/test_csv/'
-#     output_path = '/home/maxwell/Downloads/deep_sort/dataset/test_output_csv/'
+#     input_path = '/home/max/Downloads/deep_sort/dataset/test_csv/'
+#     output_path = '/home/max/Downloads/deep_sort/dataset/test_output_csv/'
 
 #     if not os.path.exists(output_path):
 #         os.mkdir(output_path)
