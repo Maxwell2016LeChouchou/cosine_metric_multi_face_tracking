@@ -13,7 +13,7 @@ from glob import glob
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 
-sys.path.append("/home/maxwell/Downloads/MTCNN/models/research")
+sys.path.append("/home/max/Downloads/MTCNN/models/research")
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util 
 
@@ -25,7 +25,7 @@ class face_detection(object):
         os.chdir(cwd)
         
         #detect_model_name = 'ckpt_data_ssd_mobilenent_v1_coco_FDDB'
-        detect_model_name = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/ckpt_data_ssd_inception_v2_coco'
+        detect_model_name = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/ckpt_data_ssd_inception_v2_coco'
         #detect_model_name = '/home/maxwell/Desktop/files/ckpt_data_ssd_inception_v2_coco'
         PATH_TO_CKPT = detect_model_name + '/frozen_inference_graph.pb'
         
@@ -131,7 +131,7 @@ class face_detection(object):
                     box = self.box_normal_to_pixel(boxes[idx], dim)
                     box_h = box[2] - box[0]
                     box_w = box[3] - box[1]
-                    box_tlwh = box[1], box[2], box_w, box_h
+                    box_tlwh = box[1], box[0], box_w, box_h
                     ratio = box_h/(box_w + 0.01)
                       
                     if ((ratio > 1.0) and (box_h>20) and (box_w>20)):

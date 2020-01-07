@@ -13,11 +13,11 @@ from PIL import Image
 
 def video_to_frame(video_file):
     #video_file = 'maxwell_friends.mp4'
-    start_time = 3000
+    start_time = 4000
     end_time = 20000
     step=30
 
-    dir_name = '/home/maxwell/Downloads/MTCNN/cosine_metric_multi_face_tracking/mft_2020/maxwell_lingfeng/img1'
+    dir_name = '/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/mft_2020/maxwell_friends/img1'
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
 
@@ -27,7 +27,7 @@ def video_to_frame(video_file):
         success, image=vidcap.read()
         if success:
             # Need to create the directory ( 'highway') first 
-            frame_list='/home/maxwell/Downloads/MTCNN/cosine_metric_multi_face_tracking/mft_2020/maxwell_lingfeng/img1/{:04d}.jpg'.format(i+1)   
+            frame_list='/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/mft_2020/maxwell_friends/img1/{:04d}.jpg'.format(i+1)   
             cv2.imwrite(frame_list,image)
     
 
@@ -65,9 +65,9 @@ def generate_detections(video_dir, frame_dir, det_dir):
 
 if __name__ == '__main__':
 
-    video_dir = '/home/maxwell/Downloads/MTCNN/cosine_metric_multi_face_tracking/maxwell_friends.mp4'
-    frame_dir = '/home/maxwell/Downloads/MTCNN/cosine_metric_multi_face_tracking/mft_2020/maxwell_lingfeng/img1'
-    det_dir = '/home/maxwell/Downloads/MTCNN/cosine_metric_multi_face_tracking/mft_2020/maxwell_lingfeng/det/det.txt'
+    video_dir = '/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/maxwell_friends.mp4'
+    frame_dir = '/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/mft_2020/maxwell_friends/img1'
+    det_dir = '/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/mft_2020/maxwell_friends/det/det.txt'
     generate_detections(video_dir,frame_dir,det_dir)
 
 
