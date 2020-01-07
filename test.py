@@ -38,15 +38,15 @@ def generate_detections(video_dir, frame_dir, det_dir):
     det_txt = []
 
     for image_file in sorted(os.listdir(frame_dir)):
-        image_base, ext = os.path.splitext(image_file)
-        print(image_base)
+        image_name, ext = os.path.splitext(image_file)
+        print(image_name)
         images = os.path.join(frame_dir,image_file)
         
         img_full = Image.open(images)
         image = det.load_image_into_numpy_array(img_full)
         
         det_bbox = det.get_localization(image, visual=False) # det_bbox = [top, left, width, height]
-        print(det_bbox[1])
+        #print(det_bbox[1])
         face_id = -1
         confidence = 1 
 
@@ -54,18 +54,18 @@ def generate_detections(video_dir, frame_dir, det_dir):
         det_y = -1
         det_z = -1
 
-        det_txt.append(np.array([image_base, face_id, det_bbox[0], det_bbox[1], det_bbox[2], det_bbox[3], confidence, det_x, det_y, det_z]))
-   
+        det_txt.append([image_name, face_id, det_bbox[0], det_bbox[1], det_bbox[2], det_bbox[3], confidence, det_x, det_y, det_z])
+
     a = np.array(det_txt)
     np.savetxt(det_dir, a, fmt="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s")
-    print(det_dir)
+    
 
 
 if __name__ == '__main__':
 
     video_dir = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/maxwell_friends.mp4'
     frame_dir = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame/'
-    det_dir = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/det_txt/'
+    det_dir = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/det_txt.txt'
     generate_detections(video_dir,frame_dir,det_dir)
 
 

@@ -127,6 +127,7 @@ class face_detection(object):
             else:
                 
                 for idx in idx_vec:
+                    print(idx)
                     dim = image.shape[0:2]
                     box = self.box_normal_to_pixel(boxes[idx], dim)
                     box_h = box[2] - box[0]
@@ -136,13 +137,15 @@ class face_detection(object):
                       
                     if ((ratio > 1.2) and (box_h>20) and (box_w>20)):
                         
-                        print(box, ', confidence: ', scores[idx], 'ratio:', ratio)
+                        print(box_tlwh, ', confidence: ', scores[idx], 'ratio:', ratio)
                          
                     else:
-                        print('wrong ratio or wrong size, ', box, ', confidence: ', scores[idx], 'ratio:', ratio)
-
+                        print('wrong ratio or wrong size, ', box_tlwh, ', confidence: ', scores[idx], 'ratio:', ratio)
+                
                 self.face_boxes = box_tlwh
-                self.scores  = scores[idx]
+            
+                print(self.face_boxes)
+                
 
         return self.face_boxes
 
