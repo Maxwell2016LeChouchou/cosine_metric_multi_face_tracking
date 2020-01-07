@@ -3,6 +3,80 @@ import cv2
 import numpy as np
 import csv
 
+import tensorflow as tf 
+
+import detector
+from matplotlib import pyplot as plt 
+
+from PIL import Image
+
+
+def video_to_frame(video_file):
+    #video_file = 'maxwell_friends.mp4'
+    start_time = 6000
+    end_time = 12000
+    step=30
+
+    dir_name = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame'
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+
+    vidcap=cv2.VideoCapture(video_file)
+    for i, time in enumerate(range(start_time, end_time, step)):
+        vidcap.set(cv2.CAP_PROP_POS_MSEC, time)
+        success, image=vidcap.read()
+        if success:
+            # Need to create the directory ( 'highway') first 
+            frame_list='/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame/{:04d}.jpg'.format(i+1)   
+            cv2.imwrite(frame_list,image)
+    
+
+def generate_detections(video_dir, frame_dir, det_dir):
+    video_to_frame(video_dir) 
+    det = detector.face_detection()   
+
+    det_txt = []
+
+    for image_file in sorted(os.listdir(frame_dir)):
+        image_base, ext = os.path.splitext(image_file)
+        print(image_base)
+        images = os.path.join(frame_dir,image_file)
+        
+        img_full = Image.open(images)
+        image = det.load_image_into_numpy_array(img_full)
+        
+        det_bbox = det.get_localization(image, visual=False) # det_bbox = [top, left, width, height]
+        print(det_bbox[1])
+        face_id = -1
+        confidence = 1 
+
+        det_x = -1
+        det_y = -1
+        det_z = -1
+
+        det_txt.append(np.array([image_base, face_id, det_bbox[0], det_bbox[1], det_bbox[2], det_bbox[3], confidence, det_x, det_y, det_z]))
+   
+    a = np.array(det_txt)
+    np.savetxt(det_dir, a, fmt="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s")
+    print(det_dir)
+
+
+if __name__ == '__main__':
+
+    video_dir = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/maxwell_friends.mp4'
+    frame_dir = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/frame/'
+    det_dir = '/home/maxwell/Downloads/MTCNN/multi_face_detection_et_tracking/problem/det_txt/'
+    generate_detections(video_dir,frame_dir,det_dir)
+
+
+
+
+
+
+
+
+
+
 # mot_dir = "/home/max/Downloads/MOT16/train/"    
     
     
@@ -267,19 +341,3 @@ import csv
 #     tf.logging.set_verbosity(tf.logging.INFO)
 #     tf.app.run()
 
-
-
-import tensorflow as tf
- 
-a_array=np.array([[1,2,3],[4,5,6]])
-b_list=[[1,2,3],[3,4,5]]
-c_tensor=tf.constant([[1,2,3],[4,5,6]])
- 
-print(c_tensor.get_shape())
-print(len(c_tensor.get_shape()))
-print(c_tensor.get_shape().as_list())
-print(len(c_tensor.get_shape().as_list()))
- 
-with tf.Session() as sess:
-    print(sess.run(tf.shape(a_array)))
-    print(sess.run(tf.shape(b_list)))

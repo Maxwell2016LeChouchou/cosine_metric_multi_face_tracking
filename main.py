@@ -42,8 +42,8 @@ from application_util import visual_helpers
 def run(img):
     output_file='/home/max/Desktop/yt_test_data/output_file/track_results.txt'
 
-    min_confidence = 0.3
-    min_detection_height = 0 
+    #min_confidence = 0.3
+    #min_detection_height = 0 
     max_cosine_distance = 0.2
     nn_budget = None
     display = True

@@ -168,7 +168,7 @@ def run(sequence_dir, detection_file, output_file, min_confidence,
 
         # Load image and generate detections.
         detections = create_detections(
-            seq_info["detections"], frame_idx, min_detection_height)
+            seq_info["detections"], frame_idx, min_detection_height)    #detections = [bbox, confidence, feature]
         detections = [d for d in detections if d.confidence >= min_confidence]
 
         # Run non-maxima suppression.
