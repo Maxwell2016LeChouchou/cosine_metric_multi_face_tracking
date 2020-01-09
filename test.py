@@ -65,7 +65,7 @@ def generate_detections(video_dir, frame_dir, det_dir):
 
 if __name__ == '__main__':
 
-    video_dir = '/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/VID.mp4'
+    video_dir = '/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/VID_v2.mp4'
     frame_dir = '/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/mft_2020/VID/img1'
     det_dir = '/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/mft_2020/VID/det/det.txt'
     generate_detections(video_dir,frame_dir,det_dir)

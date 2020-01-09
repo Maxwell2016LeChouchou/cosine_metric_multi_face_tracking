@@ -88,7 +88,7 @@ class Visualization(object):
     def __init__(self, seq_info, update_ms):
         image_shape = seq_info["image_size"][::-1]
         aspect_ratio = float(image_shape[1]) / image_shape[0]
-        image_shape = 1920, int(aspect_ratio * 1920)
+        image_shape = 1680, int(aspect_ratio * 1680)
         self.viewer = ImageViewer(
             update_ms, image_shape, "Figure %s" % seq_info["sequence_name"])
         self.viewer.thickness = 2
