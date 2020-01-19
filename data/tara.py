@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 tree = ET.parse('/home/maxwell/Downloads/GT/tara_gt_test.xml')
 root = tree.getroot()
 
-output_dir='/home/maxwell/Downloads/GT/tara_gt_5.txt'
+output_dir='/home/maxwell/Downloads/GT/tara_gt.txt'
 array_dic = []
 for frame in root.iter('Frame'):
     dic = frame.attrib
