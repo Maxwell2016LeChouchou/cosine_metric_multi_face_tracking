@@ -25,7 +25,7 @@ class face_detection(object):
         os.chdir(cwd)
         
         #detect_model_name = 'ckpt_data_ssd_mobilenent_v1_coco_FDDB'
-        detect_model_name = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/ckpt_data_ssd_inception_v2_coco'
+        detect_model_name = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/ckpt_data_faster_rcnn_inception_v2_coco'
         #detect_model_name = '/home/maxwell/Desktop/files/ckpt_data_ssd_inception_v2_coco'
         PATH_TO_CKPT = detect_model_name + '/frozen_inference_graph.pb'
         
