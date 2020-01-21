@@ -2,16 +2,16 @@ import os
 import numpy as np 
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('/home/maxwell/Downloads/GT/tara_gt_test.xml')
+tree = ET.parse('/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/GT/stickwitu_test.xml')
 root = tree.getroot()
 
-output_dir='/home/maxwell/Downloads/GT/tara_gt.txt'
+output_dir='/home/max/Downloads/MTCNN/cosine_metric_multi_face_tracking/GT/stickwitu_gt_6.txt'
 array_dic = []
 for frame in root.iter('Frame'):
     dic = frame.attrib
     
     frame = dic['frame_no']
-    id_num = 5
+    id_num = 6
     x = dic['x']
     y = dic['y']
     width = dic['width']
