@@ -25,7 +25,7 @@ class face_detection(object):
         os.chdir(cwd)
         
         #detect_model_name = 'ckpt_data_ssd_mobilenent_v1_coco_FDDB'
-        detect_model_name = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/ckpt_data_faster_rcnn_inception_v2_coco'
+        detect_model_name = '/home/max/Downloads/MTCNN/multi_face_detection_et_tracking/ckpt_data_rfcn_resnet101_coco'
         #detect_model_name = '/home/maxwell/Desktop/files/ckpt_data_ssd_inception_v2_coco'
         PATH_TO_CKPT = detect_model_name + '/frozen_inference_graph.pb'
         
@@ -120,13 +120,14 @@ class face_detection(object):
             cls = classes.tolist()
               
             idx_vec = [i for i, v in enumerate(cls) if ((v==1) and (scores[i]>0.3))]
-            
+           
             face_boxes = []
             if len(idx_vec) ==0:
-                print('no detection!')
+                #print('no detection!')
+                print('n')
             else:
                 for idx in idx_vec:
-                    print(idx)
+                    #print(idx)
                     dim = image.shape[0:2]
                     box = self.box_normal_to_pixel(boxes[idx], dim)
                     box_h = box[2] - box[0]
@@ -134,16 +135,16 @@ class face_detection(object):
                     box_tlwh = box[1], box[0], box_w, box_h
                     ratio = box_h/(box_w + 0.01)
                       
-                    if ((ratio > 1.0) and (box_h>20) and (box_w>20)):
+                    #if ((ratio > 1.0) and (box_h>20) and (box_w>20)):
                         
-                        print(box_tlwh, ', confidence: ', scores[idx], 'ratio:', ratio)
+                        #print(box_tlwh, ', confidence: ', scores[idx], 'ratio:', ratio)
                          
-                    else:
-                        print('wrong ratio or wrong size, ', box_tlwh, ', confidence: ', scores[idx], 'ratio:', ratio)
+                    #else:
+                        #print('wrong ratio or wrong size, ', box_tlwh, ', confidence: ', scores[idx], 'ratio:', ratio)
                 
                     face_boxes.append(box_tlwh)
             
-            print(face_boxes)
+            #print(face_boxes)
                 
 
         return face_boxes
