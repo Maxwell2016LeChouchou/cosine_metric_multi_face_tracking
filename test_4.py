@@ -2,7 +2,7 @@ import csv
 import os
 import numpy as np
 
-gt = '/home/maxwell/Desktop/yt_test_data/tara_gt.txt'
+gt = '/home/max/Downloads/music_video/GT/westlife/Westlife/gt/gt.txt'
 
 csvfile = open(gt)
 reader = csv.reader(csvfile)
@@ -14,5 +14,5 @@ rows = sorted(rows, key=lambda rows: rows[0])
 # for row in rows:
 #     print(row)
 a = np.array(rows)
-np.savetxt('/home/maxwell/Desktop/yt_test_data/tara_det.txt', a, fmt="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s")
+np.savetxt('/home/max/Downloads/music_video/GT/westlife/Westlife/det_gt/det.txt', a, fmt="%s,%s,%s,%s,%s,%s,%s,%s,%s,%s")
 

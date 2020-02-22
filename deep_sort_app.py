@@ -3,7 +3,7 @@ from __future__ import division, print_function, absolute_import
 
 import argparse
 import os
-
+import time
 import cv2
 import numpy as np
 
@@ -163,6 +163,7 @@ def run(sequence_dir, detection_file, output_file, min_confidence,
     tracker = Tracker(metric)
     results = []
 
+    start = time.time()
     def frame_callback(vis, frame_idx):
         print("Processing frame %05d" % frame_idx)
 
@@ -197,6 +198,10 @@ def run(sequence_dir, detection_file, output_file, min_confidence,
             bbox = track.to_tlwh()
             results.append([
                 frame_idx, track.track_id, bbox[0], bbox[1], bbox[2], bbox[3]])
+    
+    end = time.time()
+    print("Total evaluation time")
+    print(end)
 
     # Run tracker.
     if display:

@@ -2,6 +2,7 @@
 import argparse
 import os
 import deep_sort_app
+import time
 
 
 def parse_args():
@@ -42,6 +43,7 @@ if __name__ == "__main__":
 
     os.makedirs(args.output_dir, exist_ok=True)
     sequences = os.listdir(args.mot_dir)
+    start = time.time()
     for sequence in sequences:
         print("Running sequence %s" % sequence)
         sequence_dir = os.path.join(args.mot_dir, sequence)
@@ -51,3 +53,7 @@ if __name__ == "__main__":
             sequence_dir, detection_file, output_file, args.min_confidence,
             args.nms_max_overlap, args.min_detection_height,
             args.max_cosine_distance, args.nn_budget, display=False)
+
+    end = time.time()
+    print(end-start)
+    print("Total evaluation time")
